@@ -30,10 +30,12 @@ const Dashboard = () => {
       {loading ? (
         <Loader label="Pulling the numbers" />
       ) : (
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <StatCard label="Total menu items" value={stats?.totalMenuItems ?? 0} hint="Across all categories" />
           <StatCard label="Registered users" value={stats?.totalUsers ?? 0} hint="Excludes staff accounts" />
-          <StatCard label="Total orders" value={stats?.totalOrders ?? 0} hint="Coming in a future update" />
+          <StatCard label="Total orders" value={stats?.totalOrders ?? 0} hint="All customer orders" />
+          <StatCard label="Revenue" value={`₹${Number(stats?.totalSales ?? 0).toFixed(0)}`} hint={`${stats?.completedOrders ?? 0} completed orders`} />
+          <StatCard label="Pending orders" value={stats?.pendingOrders ?? 0} hint="Needs kitchen attention" />
         </div>
       )}
     </div>

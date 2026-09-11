@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 import Loader from "../../components/Loader";
+import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
 
 const MenuItemDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { addItem } = useCart();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -34,6 +39,16 @@ const MenuItemDetails = () => {
   }
 
   const outOfStock = item.availability === false;
+  const handleAdd = async () => {
+    if (!isAuthenticated) {
+      navigate("/login", { state: { from: `/menu/${id}`, message: "Please login to add items to cart." } });
+      return;
+    }
+    try {
+      await addItem(item._id);
+      navigate("/cart");
+    } catch (_) {}
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-5 sm:px-8 py-14">
@@ -57,7 +72,7 @@ const MenuItemDetails = () => {
 
           <p className="text-ink/70 mt-6 leading-relaxed">{item.description}</p>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             {outOfStock ? (
               <span className="inline-block px-4 py-2 rounded-full bg-brick/10 text-brick text-sm font-medium">
                 Currently out of stock
@@ -67,6 +82,7 @@ const MenuItemDetails = () => {
                 Available now
               </span>
             )}
+            {!outOfStock && <button onClick={handleAdd} className="px-5 py-2.5 rounded-full bg-ink text-paper text-sm hover:bg-ink-soft">Add to cart</button>}
           </div>
         </div>
       </div>

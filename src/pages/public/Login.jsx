@@ -28,6 +28,7 @@ const Login = () => {
     <div className="max-w-md mx-auto px-5 py-20">
       <p className="text-gold-dark text-sm tracking-[0.15em] mb-2">WELCOME BACK</p>
       <h1 className="font-display text-3xl text-ink mb-8">Log in</h1>
+      {location.state?.message && <p className="mb-5 rounded-md bg-gold/15 px-4 py-3 text-sm text-ink">{location.state.message}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

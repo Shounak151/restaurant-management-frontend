@@ -13,11 +13,16 @@ import MenuItemDetails from "./pages/public/MenuItemDetails";
 import Login from "./pages/public/Login";
 import Register from "./pages/public/Register"; 
 import AdminLogin from "./pages/public/AdminLogin";
+import Cart from "./pages/public/Cart";
+import Checkout from "./pages/public/Checkout";
+import MyOrders from "./pages/public/MyOrders";
+import OrderConfirmation from "./pages/public/OrderConfirmation";
 
 import Dashboard from "./pages/admin/Dashboard";
 import MenuItemsList from "./pages/admin/MenuItemsList";
 import MenuItemForm from "./pages/admin/MenuItemForm";
 import Users from "./pages/admin/Users";
+import Orders from "./pages/admin/Orders";
 
 const PublicLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col">
@@ -37,6 +42,10 @@ function App() {
       <Route path="/login" element={<PublicLayout><Login /></PublicLayout>} />
       <Route path="/register" element={<PublicLayout><Register /></PublicLayout>} />
       <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/cart" element={<ProtectedRoute><PublicLayout><Cart /></PublicLayout></ProtectedRoute>} />
+      <Route path="/checkout" element={<ProtectedRoute><PublicLayout><Checkout /></PublicLayout></ProtectedRoute>} />
+      <Route path="/my-orders" element={<ProtectedRoute><PublicLayout><MyOrders /></PublicLayout></ProtectedRoute>} />
+      <Route path="/order-confirmation/:id" element={<ProtectedRoute><PublicLayout><OrderConfirmation /></PublicLayout></ProtectedRoute>} />
 
       {/* Admin panel (protected) */}
       <Route
@@ -76,6 +85,14 @@ function App() {
         element={
           <AdminProtectedRoute>
             <AdminLayout><Users /></AdminLayout>
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminProtectedRoute>
+            <AdminLayout><Orders /></AdminLayout>
           </AdminProtectedRoute>
         }
       />

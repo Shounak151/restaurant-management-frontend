@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 const navLinkClass = ({ isActive }) =>
   `text-sm tracking-wide transition-colors ${
@@ -9,6 +10,7 @@ const navLinkClass = ({ isActive }) =>
 
 const Navbar = () => {
   const { user, logout, isAdmin } = useAuth();
+  const { itemCount } = useCart();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -29,6 +31,8 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center gap-8">
           <NavLink to="/" end className={navLinkClass}>Home</NavLink>
           <NavLink to="/menu" className={navLinkClass}>Menu</NavLink>
+          {user && <NavLink to="/cart" className={navLinkClass}>Cart{itemCount > 0 ? ` (${itemCount})` : ""}</NavLink>}
+          {user && <NavLink to="/my-orders" className={navLinkClass}>My orders</NavLink>}
           {isAdmin && (
             <NavLink to="/admin" className={navLinkClass}>Dashboard</NavLink>
           )}
@@ -80,6 +84,8 @@ const Navbar = () => {
         <div className="md:hidden border-t border-ink/10 px-5 py-4 flex flex-col gap-4 bg-paper">
           <NavLink to="/" end className={navLinkClass} onClick={() => setOpen(false)}>Home</NavLink>
           <NavLink to="/menu" className={navLinkClass} onClick={() => setOpen(false)}>Menu</NavLink>
+          {user && <NavLink to="/cart" className={navLinkClass} onClick={() => setOpen(false)}>Cart{itemCount > 0 ? ` (${itemCount})` : ""}</NavLink>}
+          {user && <NavLink to="/my-orders" className={navLinkClass} onClick={() => setOpen(false)}>My orders</NavLink>}
           {isAdmin && (
             <NavLink to="/admin" className={navLinkClass} onClick={() => setOpen(false)}>Dashboard</NavLink>
           )}

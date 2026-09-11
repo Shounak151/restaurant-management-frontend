@@ -22,6 +22,7 @@ const AdminSidebar = () => {
         <NavLink to="/admin" end className={linkClass}>Dashboard</NavLink>
         <NavLink to="/admin/menu-items" className={linkClass}>Menu items</NavLink>
         <NavLink to="/admin/users" className={linkClass}>Users</NavLink>
+        <NavLink to="/admin/orders" className={linkClass}>Orders</NavLink>
       </nav>
 
       <div className="hidden md:block mt-auto px-4 pt-4 border-t border-paper/10">
