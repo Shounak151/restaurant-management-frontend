@@ -24,7 +24,7 @@ const Dashboard = () => {
   return (
     <div>
       <p className="text-gold-dark text-sm tracking-[0.15em] mb-2">OVERVIEW</p>
-      <h1 className="font-display text-3xl text-ink mb-1">Good to see you, {user?.name?.split(" ")[0]}</h1>
+      <h1 className="font-display text-3xl text-ink mb-1">Good to see you, {user?.name?.split(" ")[0] || "there"}</h1>
       <p className="text-ink/50 mb-8">Here's how the kitchen and floor look today.</p>
 
       {loading ? (

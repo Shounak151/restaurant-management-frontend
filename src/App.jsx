@@ -23,6 +23,9 @@ import MenuItemsList from "./pages/admin/MenuItemsList";
 import MenuItemForm from "./pages/admin/MenuItemForm";
 import Users from "./pages/admin/Users";
 import Orders from "./pages/admin/Orders";
+import SupportTickets from "./pages/admin/SupportTickets";
+import LiveSupport from "./pages/admin/LiveSupport";
+import Chatbot from "./components/Chatbot";
 
 const PublicLayout = ({ children }) => (
   <div className="min-h-screen flex flex-col">
@@ -34,7 +37,8 @@ const PublicLayout = ({ children }) => (
 
 function App() {
   return (
-    <Routes>
+    <>
+      <Routes>
       {/* Public site */}
       <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
       <Route path="/menu" element={<PublicLayout><Menu /></PublicLayout>} />
@@ -97,6 +101,24 @@ function App() {
         }
       />
 
+      <Route
+        path="/admin/support-tickets"
+        element={
+          <AdminProtectedRoute>
+            <AdminLayout><SupportTickets /></AdminLayout>
+          </AdminProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/live-support"
+        element={
+          <AdminProtectedRoute>
+            <AdminLayout><LiveSupport /></AdminLayout>
+          </AdminProtectedRoute>
+        }
+      />
+
       {/* 404 */}
       <Route
         path="*"
@@ -109,7 +131,9 @@ function App() {
           </PublicLayout>
         }
       />
-    </Routes>
+      </Routes>
+      <Chatbot />
+    </>
   );
 }
 

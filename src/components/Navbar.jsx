@@ -41,7 +41,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <>
-              <span className="text-sm text-ink/70">Hi, {user.name.split(" ")[0]}</span>
+              <span className="text-sm text-ink/70">Hi, {user.name?.split(" ")[0] || "there"}</span>
               <button
                 onClick={handleLogout}
                 className="text-sm px-4 py-2 rounded-full border border-ink/20 hover:border-ink/40 transition-colors"

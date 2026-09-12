@@ -3,11 +3,21 @@ import api from "../api/axios";
 
 const AuthContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
+const readStoredUser = () => {
+  try {
     const stored = localStorage.getItem("tastybites_user");
-    return stored ? JSON.parse(stored) : null;
-  });
+    if (!stored) return null;
+    const parsed = JSON.parse(stored);
+    return parsed && typeof parsed === "object" && parsed._id && parsed.email ? parsed : null;
+  } catch (_) {
+    localStorage.removeItem("tastybites_user");
+    localStorage.removeItem("tastybites_token");
+    return null;
+  }
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(readStoredUser);
 
   const persist = (data) => {
     localStorage.setItem("tastybites_token", data.token);
